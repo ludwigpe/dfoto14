@@ -8,12 +8,12 @@ close all                   % Close all figures
 clc                         % Clear the command window
 addpath( genpath( '../' ) );% Add paths to all subdirectories of the parent directory
 
-LOAD_DATA           = false;
+LOAD_DATA           = true;
 REFERENCE_VIEW      = 3;
 CAMERAS             = 3;
-image_names_file    = '~/Documents/KTH/dfoto14/images/names_images_kthsmall.txt';
-name_panorama       = '~/Documents/KTH/dfoto14/images/panorama_image.jpg';
-points2d_file       = '~/Documents/KTH/dfoto14/data/data_kth.mat';
+image_names_file    = '../images/names_images_kthsmall.txt';
+name_panorama       = '../images/panorama_image.jpg';
+points2d_file       = '../data/data_kth.mat';
     
 [images, name_loaded_images] = load_images_grey( image_names_file, CAMERAS );
 
@@ -32,6 +32,12 @@ end
 % point in REFERENCE_VIEW = homographies(:,:,c) * point in image c.
 % Remember, you have to set homographies{REFERENCE_VIEW} as well.
 homographies = zeros(3,3,CAMERAS); 
+refPoints = points2d(:,:,REFERENCE_VIEW);
+compute_normalization_matrices(points2d)
+for c = 1:CAMERAS
+    points = points2d(:,:,c);
+    homographies(:,:,c) = compute_homography(points, refPoints);
+end
 
 %-------------------------
 % TODO: FILL IN THIS PART
