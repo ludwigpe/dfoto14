@@ -48,7 +48,3 @@ end
 
 norm_mat_error = norm_mat - norm_mat_test
 
-
-
-
-

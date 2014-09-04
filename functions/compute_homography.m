@@ -42,29 +42,29 @@ end
 
 
 Q = zeros(2*n, 9);
-for i = 1:n
-    xa = points2(1,i);
-    ya = points2(2,i);
-    
-    xb = points1(1,i);
-    yb = points1(2,i);
-    
-    a = [xb, yb, 1, 0, 0, 0, -xb*xa, -yb*xa, -xa];
-    b = [0, 0, 0, xb, yb, 1, -xb*ya, -yb*ya, -ya];
-    
-    Q(i,:) = a;
-    Q(i+n,:) = b;
-end
-% xref = points2(1,:)'; % make column vector of all xa
-% yref = points2(2,:)'; % make column vector of all ya
-% 
-% xc = points1(1,:)'; % make column vector of all xb
-% yc = points1(2,:)'; % make column vector of all yb
-% 
-% alpha = [xc, yc, ones(n,1), zeros(n,3), -xc.*xref, -yc.*xref,-xref];
-% beta  = [zeros(n,3), xc, yc, ones(n,1), -xc.*yref, -yc.*yref,-yref];
-% 
-% Q = [alpha;beta];
+% for i = 1:n
+%     xa = points2(1,i);
+%     ya = points2(2,i);
+%     
+%     xb = points1(1,i);
+%     yb = points1(2,i);
+%     
+%     a = [xb, yb, 1, 0, 0, 0, -xb*xa, -yb*xa, -xa];
+%     b = [0, 0, 0, xb, yb, 1, -xb*ya, -yb*ya, -ya];
+%     
+%     Q(i,:) = a;
+%     Q(i+n,:) = b;
+% end
+xref = points2(1,:)'; % make column vector of all xa
+yref = points2(2,:)'; % make column vector of all ya
+
+xc = points1(1,:)'; % make column vector of all xb
+yc = points1(2,:)'; % make column vector of all yb
+
+alpha = [xc, yc, ones(n,1), zeros(n,3), -xc.*xref, -yc.*xref,-xref];
+beta  = [zeros(n,3), xc, yc, ones(n,1), -xc.*yref, -yc.*yref,-yref];
+
+Q = [alpha;beta];
 
 [U,S,V] = svd(Q);
 
