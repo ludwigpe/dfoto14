@@ -36,17 +36,15 @@ homographies = zeros(3,3,CAMERAS);
 homographies_norm = zeros(3,3,CAMERAS); 
 refPoints = points2d(:,:,REFERENCE_VIEW);
 norm_mat = compute_normalization_matrices(points2d);
-norm_ref = norm_mat(:,:,REFERENCE_VIEW);
 points2d_norm = zeros(size(points2d));
 for c = 1:CAMERAS
     points = points2d(:,:,c);
-    points_norm = norm_mat(:,:,c)*points; 
-    points2d_norm(:,:,c) = points_norm;
-    homographies_norm(:,:,c) = compute_homography(points_norm, refPoints);
-    
+    points2d_norm(:,:,c) = norm_mat(:,:,c)*points; 
+   
     homographies(:,:,c) = compute_homography(points, refPoints);
 end
 
+compute_normalization_matrices(points2d_norm);
 %-------------------------
 % TODO: FILL IN THIS PART
 
