@@ -39,11 +39,11 @@ elseif any(isnan(points2(1,:)))
     [~, n] = size(points2); % find out how many points
 end
 
-xref = points2(1,:)'; % make column vector of all xa
-yref = points2(2,:)'; % make column vector of all ya
+xref = points2(1,:)'; % make column vector of all xref
+yref = points2(2,:)'; % make column vector of all yref
 
-xc = points1(1,:)'; % make column vector of all xb
-yc = points1(2,:)'; % make column vector of all yb
+xc = points1(1,:)'; % make column vector of all xc
+yc = points1(2,:)'; % make column vector of all yx
 
 alpha = [xc, yc, ones(n,1), zeros(n,3), -xc.*xref, -yc.*xref,-xref];
 beta  = [zeros(n,3), xc, yc, ones(n,1), -xc.*yref, -yc.*yref,-yref];

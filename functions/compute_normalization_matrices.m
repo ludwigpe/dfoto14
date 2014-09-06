@@ -14,7 +14,7 @@
 function norm_mat = compute_normalization_matrices( points2d )
 
 [~,~,C] = size(points2d);
-centroids = zeros(3,C);
+
 norm_mat = zeros(3,3,C);
 % compute centroid for each set of points
 for i = 1:C
@@ -35,7 +35,6 @@ for i = 1:C
    
 end
 
-norm_mat
 end
 
 %-------------------------

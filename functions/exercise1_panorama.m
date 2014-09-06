@@ -34,17 +34,27 @@ end
 % Remember, you have to set homographies{REFERENCE_VIEW} as well.
 homographies = zeros(3,3,CAMERAS); 
 homographies_norm = zeros(3,3,CAMERAS); 
-refPoints = points2d(:,:,REFERENCE_VIEW);
-norm_mat = compute_normalization_matrices(points2d);
-norm_ref = norm_mat(:,:,REFERENCE_VIEW);
+
 points2d_norm = zeros(size(points2d));
+
+% compute Normalization matrices
+norm_mat = compute_normalization_matrices(points2d);
+
 for c = 1:CAMERAS
-    points = points2d(:,:,c);
-    points_norm = norm_mat(:,:,c)*points; 
-    points2d_norm(:,:,c) = points_norm;
-    homographies_norm(:,:,c) = compute_homography(points_norm, refPoints);
+    % compute normalized points for camera c
+    points2d_norm(:,:,c) = norm_mat(:,:,c)*points2d(:,:,c);
     
-    homographies(:,:,c) = compute_homography(points, refPoints);
+end
+refPoints_norm = points2d_norm(:,:,REFERENCE_VIEW);
+norm_ref = norm_mat(:,:,REFERENCE_VIEW); % Normalization matrix for reference camera
+
+for c = 1:CAMERAS
+    points_norm = norm_mat(:,:,c)*points2d(:,:,c);
+    h_norm = compute_homography(points_norm, refPoints_norm);
+    Nc = norm_mat(:,:,c);
+    H = norm_ref\h_norm*Nc;
+    homographies(:,:,c) = H;
+    
 end
 
 %-------------------------
