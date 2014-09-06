@@ -1,4 +1,5 @@
 
+
 % Method:   Generate one image out of multiple images. All images are from
 %           a camera with the same (!) center of projection. All the images 
 %           are registered to one reference view.
@@ -11,7 +12,7 @@ addpath( genpath( '../' ) );% Add paths to all subdirectories of the parent dire
 LOAD_DATA           = true;
 REFERENCE_VIEW      = 3;
 CAMERAS             = 3;
-image_names_file    = '../images/names_images_kthsmall.txt';
+image_names_file    = '../images/names_images_kth.txt';
 name_panorama       = '../images/panorama_image.jpg';
 points2d_file       = '../data/data_kth.mat';
     

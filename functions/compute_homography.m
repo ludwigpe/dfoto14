@@ -12,7 +12,6 @@
 
 function H = compute_homography( points1, points2 )
 
-
 %-------------------------
 % TODO: FILL IN THIS PART
 % points2 are the reference points
@@ -24,8 +23,8 @@ if any(isnan(points1(1,:)))
     start = c(1);
     stop = c(end);
 
-    points1 = points1(:, all(~isnan(points1))) % remove nan columns
-    points2 = points2(:, start:stop) % remove corresponding nan rows
+    points1 = points1(:, all(~isnan(points1))); % remove nan columns
+    points2 = points2(:, start:stop); % remove corresponding nan rows
 
     [~, n] = size(points1); % find out how many points
 elseif any(isnan(points2(1,:)))
@@ -34,27 +33,12 @@ elseif any(isnan(points2(1,:)))
     start = c(1);
     stop = c(end);
 
-    points2 = points2(:, all(~isnan(points2))) % remove nan columns
-    points1 = points1(:, start:stop) % remove corresponding nan rows
+    points2 = points2(:, all(~isnan(points2))); % remove nan columns
+    points1 = points1(:, start:stop); % remove corresponding nan rows
 
     [~, n] = size(points2); % find out how many points
 end
 
-
-Q = zeros(2*n, 9);
-% for i = 1:n
-%     xa = points2(1,i);
-%     ya = points2(2,i);
-%     
-%     xb = points1(1,i);
-%     yb = points1(2,i);
-%     
-%     a = [xb, yb, 1, 0, 0, 0, -xb*xa, -yb*xa, -xa];
-%     b = [0, 0, 0, xb, yb, 1, -xb*ya, -yb*ya, -ya];
-%     
-%     Q(i,:) = a;
-%     Q(i+n,:) = b;
-% end
 xref = points2(1,:)'; % make column vector of all xa
 yref = points2(2,:)'; % make column vector of all ya
 

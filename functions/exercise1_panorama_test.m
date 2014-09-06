@@ -24,7 +24,8 @@ for c=1:CAMERAS
     points_ref = points2d(:,:,REFERENCE_VIEW);
     points_c   = points2d(:,:,c);
     
-    homographies_test(:,:,c) = compute_homography( points_ref, points_c );
+    %homographies_test(:,:,c) = compute_homography( points_ref, points_c );
+    homographies_test(:,:,c) = compute_homography( points_c, points_ref  );
     
     homographies(:,:,c)      = fix_homogeneous_scale( homographies(:,:,c)      );
     homographies_test(:,:,c) = fix_homogeneous_scale( homographies_test(:,:,c) );
