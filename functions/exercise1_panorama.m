@@ -9,7 +9,8 @@ close all                   % Close all figures
 clc                         % Clear the command window
 addpath( genpath( '../' ) );% Add paths to all subdirectories of the parent directory
 
-LOAD_DATA           = true;
+NORMALIZE           = false;
+LOAD_DATA           = false;
 REFERENCE_VIEW      = 3;
 CAMERAS             = 3;
 image_names_file    = '../images/names_images_kth.txt';
@@ -49,12 +50,17 @@ refPoints_norm = points2d_norm(:,:,REFERENCE_VIEW);
 norm_ref = norm_mat(:,:,REFERENCE_VIEW); % Normalization matrix for reference camera
 
 for c = 1:CAMERAS
-    points_norm = norm_mat(:,:,c)*points2d(:,:,c);
-    h_norm = compute_homography(points_norm, refPoints_norm);
-    Nc = norm_mat(:,:,c);
-    H = norm_ref\h_norm*Nc;
-    homographies(:,:,c) = H;
-    
+    if NORMALIZE
+        points_norm = norm_mat(:,:,c)*points2d(:,:,c);
+        h_norm = compute_homography(points_norm, refPoints_norm);
+        Nc = norm_mat(:,:,c);
+        H = norm_ref\h_norm*Nc;
+        homographies(:,:,c) = H;
+    else
+        points = points2d(:,:,c);
+        refPoints = points2d(:,:,REFERENCE_VIEW);
+        homographies(:,:,c) = compute_homography(points, refPoints);
+    end
 end
 
 %-------------------------
