@@ -26,10 +26,7 @@ IMPROVE_ACCURACY = true;
 [~,n,~] = size(points2d);
 points = zeros(size(points2d));
 points_norm = zeros(size(points2d));
-norm_mat = compute_normalization_matrices(points2d);
-Na = norm_mat(:,:,1);
-Nb = norm_mat(:,:,2);
-
+norm_mat = compute_normalization_matrices(points2d)
 W = zeros(n, 9);
 for i = 1:n  
     pa_orig = points2d(:,i,1);
@@ -40,11 +37,12 @@ for i = 1:n
 
     points(:,i,1) = pa;
     points(:,i,2) = pb;
+    W(i,:) = [xb*xa, xb*ya, xb, yb*xa, yb*ya, yb, xa, ya, 1];
    
     % End of first thing
     % Normalize for better accuracy
-    pa_norm = Na*pa;
-    pb_norm = Nb*pb;
+    pa_norm = norm_mat(:,:,1)*pa;
+    pb_norm = norm_mat(:,:,2)*pb;
      
     points_norm(:,i,1) = pa_norm;
     points_norm(:,i,2) = pb_norm;
@@ -72,16 +70,16 @@ end
 [U,S,V] = svd(W);
 
 if(IMPROVE_ACCURACY)
-    f = V(:,end);
-    F = vec2mat(f,3);
-    E = Nb'*F*Na;
-
-else
+    
     e = V(:,end);
     E = vec2mat(e,3);
+else
+
+
 end
 
-
+e = V(:,end);
+E = vec2mat(e,3);
 
 for i = 1:n
     pa = points(:,i,1);

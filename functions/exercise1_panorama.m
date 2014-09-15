@@ -9,8 +9,8 @@ close all                   % Close all figures
 clc                         % Clear the command window
 addpath( genpath( '../' ) );% Add paths to all subdirectories of the parent directory
 
-NORMALIZE           = false;
-LOAD_DATA           = false;
+NORMALIZE           = true;
+LOAD_DATA           = true;
 REFERENCE_VIEW      = 3;
 CAMERAS             = 3;
 image_names_file    = '../images/names_images_kth.txt';
