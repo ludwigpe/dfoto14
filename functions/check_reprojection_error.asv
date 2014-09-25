@@ -29,10 +29,9 @@ for c = 1:2
     cam = cameras(:,:,c);
     
     for i = 1:N
-       real_point2d = points2d(:,i,c);
+       real_point2d = points2d(1:2,i,c);
        calc_point2d = cam*points3d(:,N);
-       real_point2d = homogeneous_to_cartesian(real_point2d);
-       calc_point2d = homogeneous_to_cartesian(calc_point2d);
+       calc_point2dhomogeneous_to_cartesian(calc_point2d)
        error = norm(real_point2d-calc_point2d);
        errors = [errors,error];
     end

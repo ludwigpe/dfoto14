@@ -91,7 +91,7 @@ for i = 1:n
         pa = points(:,i,1);
         pb = points(:,i,2)'; 
     end
-    
+    % check epipolar constraint
     res = pb*E*pa;
     if(abs(res) > (10^-10))
         display('Calculations are not accurate enough!');
