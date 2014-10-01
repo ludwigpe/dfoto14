@@ -13,6 +13,20 @@
 
 function [cams, cam_centers] = reconstruct_uncalibrated_stereo_cameras( F )
 
+[U,S,V] = svd(F');
+h = V(:,end);
 
-%------------------------------
-% TODO: FILL IN THIS PART
+% creat the antisymetric matrix S
+S = [0, -1, 1; 1, 0 , -1; -1, 1, 0];
+
+cams(:,:,1) = eye(3,4);
+Mb(:,1:3) = S*F;
+Mb(:,end+1) = h;
+cams(:,:,2) = Mb;
+
+for c = 1:2
+    [U,S,V] = svd(cams(:,:,c));
+    cam_centers(:,c) = V(:,end);
+end
+
+end

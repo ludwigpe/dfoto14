@@ -68,6 +68,7 @@ if IMPROVE_ACCURACY == true
     end
     % calculate the E-matrix from the F matrix
     E_norm = norm_mat(:,:,2)'*F*norm_mat(:,:,1);
+    rankE = rank(E_norm)
    [U,S,V] = svd(E_norm);
    % calculate the correct E-matrix that fulfills the property in the
    % lecture notes.
@@ -77,6 +78,7 @@ if IMPROVE_ACCURACY == true
    S(2,2) = S_correct;
    % Calculate the final E-matrix
    E = U*S*V';
+   rank_correct = rank(E)
 else
     e = V(:,end);
     E = vec2mat(e,3);
@@ -87,6 +89,7 @@ else
             display('not good enough');
         end
     end
+      rank2 = rank(E)
 end
 
 end
