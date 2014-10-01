@@ -47,7 +47,7 @@ grid on
 X_2d = points2d_cartesian(1,:);
 Y_2d = points2d_cartesian(2,:);
 
-triang = delaunay(X_2d, Y_2d);
+triang = delaunay(X_2d, Y_2d)
 figure(2)
 hold on
 th1 = trisurf(triang, X, Y, Z);
@@ -56,6 +56,17 @@ view(126,20)
 axis equal
 axis vis3d
 grid on
+
+if ~isempty(texture)
+   figure(3)
+   hold on
+   draw_textured_triangles(triang, X, Y, Z, Y_2d, X_2d,texture, 32);
+   view(126,20)
+    axis equal
+    axis vis3d
+    grid on
+end
+
 
 
 end
