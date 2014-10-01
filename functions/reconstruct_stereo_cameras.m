@@ -31,10 +31,12 @@ Z = [0, 1, 0; -1, 0, 0; 0, 0, 0];
 W = [0, -1, 0; 1, 0, 0; 0, 0, 1];
 [U,S,V] = svd(E);
 t = V(:,end)
+t = t/norm(t);
+
 
 cam_centers = zeros(4,2);
 cam_centers(4,:) = 1;
-cam_centers(1:3,2) = -t;
+cam_centers(1:3,2) = t;
 
 R1 = U*W*(V');
 R2 = U*(W')*(V');

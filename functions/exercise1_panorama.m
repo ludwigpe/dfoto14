@@ -44,7 +44,7 @@ norm_mat = compute_normalization_matrices(points2d);
 for c = 1:CAMERAS
     % compute normalized points for camera c
     points2d_norm(:,:,c) = norm_mat(:,:,c)*points2d(:,:,c);
-    
+    compute_normalization_matrices(points2d_norm(:,:,c))
 end
 refPoints_norm = points2d_norm(:,:,REFERENCE_VIEW);
 norm_ref = norm_mat(:,:,REFERENCE_VIEW); % Normalization matrix for reference camera

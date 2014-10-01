@@ -44,7 +44,18 @@ grid on
 
 % ------------------------
 % TODO: FILL IN THIS PART
+X_2d = points2d_cartesian(1,:);
+Y_2d = points2d_cartesian(2,:);
 
+triang = delaunay(X_2d, Y_2d);
+figure(2)
+hold on
+th1 = trisurf(triang, X, Y, Z);
+set(th1, 'FaceColor', 'g');
+view(126,20)
+axis equal
+axis vis3d
+grid on
 
 
 end
